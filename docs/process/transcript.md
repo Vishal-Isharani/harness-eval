@@ -1,3 +1,13 @@
+# Agent session: top convention violations in the report
+
+- 🎥 Screen recording: [recording](https://drive.google.com/file/d/1yARou_gsYS0xEeNTUPBSeuzPGIo3qZL1/view?usp=drive_link)
+- Agent: Claude Code v2.1.285 (Opus 5.5)
+- Task: show the 3 most frequent convention rules per harness, with a file:line example
+- What I checked and where the agent was wrong: [HAND_CHECKS.md](HAND_CHECKS.md)
+
+Unedited export from Claude Code (`/export`). Wrapped in a code block so the terminal layout is preserved.
+
+```text
  ▐▛███▛█   Claude Code v2.1.285
 ▝▜██████▀  Opus 5.5 · Claude Pro
  ▝▝   ▝▝   ~/Projects/ninja tech/harness-eval
@@ -751,3 +761,4 @@
      - I didn't rebuild it after the "No violations" wording change.
 
 ✻ Cooked for 17s · done 4:39 PM
+```
