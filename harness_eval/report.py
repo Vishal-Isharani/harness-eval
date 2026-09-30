@@ -40,6 +40,27 @@ def _avg(rs, key):
     return sum(vals) / len(vals) if vals else None
 
 
+def _top_violations(recs, k=3):
+    """Most frequent rules, ranked by violations, then trials hit, then rule id."""
+    by_rule = defaultdict(list)
+    for r in recs:
+        for v in r["conventions"]["violations"]:
+            by_rule[v["rule"]].append(((r["task"], r["trial"], v["file"], v["line"]), v))
+    top = []
+    for rule, hits in by_rule.items():
+        hits.sort(key=lambda h: h[0])
+        located = [v for _, v in hits if v["line"] > 0]
+        top.append({"rule": rule, "count": len(hits),
+                    "trials": len({key[:2] for key, _ in hits}),
+                    "example": located[0] if located else hits[0][1]})
+    top.sort(key=lambda t: (-t["count"], -t["trials"], t["rule"]))
+    return top[:k]
+
+
+def _code(s):
+    return f"`` {s} ``" if "`" in s else f"`{s}`"
+
+
 def build_markdown(cmp: dict, base: list[dict], cand: list[dict], trials: int) -> str:
     A, B = cmp["baseline"], cmp["candidate"]
     L = [f"# Harness evaluation: `{A}` → `{B}`", "",
@@ -90,7 +111,19 @@ def build_markdown(cmp: dict, base: list[dict], cand: list[dict], trials: int) -
               f"| Rule | {A} | {B} |", "|---|---|---|"]
         for rule in sorted(set(va) | set(vb), key=lambda x: -(va[x] + vb[x])):
             L.append(f"| `{rule}` | {va[rule]} | {vb[rule]} |")
-        L.append("")
+        L += ["", "### Most frequent rules, with an example", ""]
+        for name, recs in ((A, base), (B, cand)):
+            L += [f"**{name}**", ""]
+            for i, t in enumerate(_top_violations(recs), 1):
+                ex = t["example"]
+                loc = f"{ex['file']}:{ex['line']}"
+                where = (f"{_code(loc)}: {_code(ex['text'])}" if ex["line"] > 0
+                         else f"_no file/line_: {ex['message']}")
+                L.append(f"{i}. `{t['rule']}`: {t['count']} violation(s) in {t['trials']}/{len(recs)} trials, "
+                         f"e.g. {where}")
+            if not any(r["conventions"]["violations"] for r in recs):
+                L.append("_No violations._")
+            L.append("")
 
     def missed(recs):
         c = Counter()

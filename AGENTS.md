@@ -19,6 +19,9 @@ coding-agent harness improved code quality. Read README.md first.
 3. Run `python -m pytest -q tests` and `hev selftest`. Paste the output. Do not claim success without it.
 4. When you change the report, run an evaluation and read the rendered `report.md`, then check
    at least one number by hand against the trial's `result.json`.
+5. Plan approval is not permission to implement. After approval, write the tests, run them,
+   and show they fail before touching harness_eval/.
+6. If you asked me a question, wait for the answer before acting.
 
 ## Don't
 - Don't add a 1-10 "quality score" or blend metrics into one number. Keep dimensions separate.

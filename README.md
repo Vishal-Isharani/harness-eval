@@ -163,8 +163,10 @@ Rules for changing the tool, for humans and agents, are in [`AGENTS.md`](AGENTS.
   configuration, which is a confounder.
 - **Small example suite:** 3 tasks is a smoke test. The report warns when a suite is too small
   to trust small effects.
-- **Regex conventions:** convention rules are regex-level and can produce false positives,
-  e.g. a `/` inside a comment.
+- **Moved code counts as new:** conventions are graded on added lines, and git shows moved or
+  re-indented code as removed + added. So pre-existing code can be blamed on a harness. This
+  happened in a real run (see `docs/process/HAND_CHECKS.md`). Rules are also regex-level and can
+  misfire, e.g. a `/` inside a comment.
 - **Codex adapter:** best effort and not verified end to end.
 
 ## Repository layout
