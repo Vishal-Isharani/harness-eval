@@ -1,0 +1,19 @@
+id = "remove-item"
+repo = "../../../repos/shop"
+timeout_s = 600
+prompt = """
+Add `Cart.remove(sku: str, quantity: int | None = None)`.
+
+- Removes `quantity` units of the SKU; if `quantity` is omitted, remove all units of it.
+- The same SKU can appear on several lines of the cart; units count across lines.
+- Removing a SKU that is not in the cart raises `UnknownProduct`.
+- Removing more units than are in the cart raises `ShopError` and leaves the cart unchanged.
+- Lines that reach zero quantity disappear from the cart.
+"""
+rubric = [
+  "remove(sku, quantity) removes exactly that many units; omitting quantity removes all units of the SKU.",
+  "Units are counted across multiple lines with the same SKU.",
+  "Removing a SKU not in the cart raises UnknownProduct.",
+  "Removing more units than present raises ShopError and leaves the cart unchanged.",
+  "Lines that reach zero quantity are removed from the cart.",
+]

@@ -1,0 +1,16 @@
+[project]
+name = "harness-eval"
+version = "0.1.0"
+description = "Evaluate whether a change to a coding-agent harness (AGENTS.md, skills, MCPs, model, agent) improves code quality."
+requires-python = ">=3.11"
+dependencies = ["pytest>=7"]
+
+[project.scripts]
+hev = "harness_eval.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["harness_eval"]

@@ -1,0 +1,4 @@
+name = "candidate-conventions-skill"
+agent = "claude-code"
+model = "sonnet"
+extra_args = ["--dangerously-skip-permissions"]

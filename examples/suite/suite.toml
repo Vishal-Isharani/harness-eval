@@ -1,0 +1,47 @@
+name = "shop"
+tasks = "tasks/*/task.toml"
+
+# The team's conventions. Evaluated on lines the agent ADDED only.
+# `paths` are fnmatch globs ('*' also matches '/').
+
+[[rules]]
+id = "money-in-integer-cents"
+kind = "forbid"
+paths = ["src/*.py"]
+pattern = '\bfloat\(|\bround\(|\b\d+\.\d+\b|\bDecimal\('
+message = "Money must be integer cents; no floats, round() or Decimal."
+
+[[rules]]
+id = "no-true-division"
+kind = "forbid"
+paths = ["src/*.py"]
+pattern = '[^/]/(?![/=])'
+message = "Use // with explicit rounding for money math; '/' produces floats."
+
+[[rules]]
+id = "domain-errors-only"
+kind = "forbid"
+paths = ["src/*.py"]
+pattern = 'raise (ValueError|KeyError|TypeError|Exception|RuntimeError)\b'
+message = "Raise a ShopError subclass, never a builtin exception."
+
+[[rules]]
+id = "no-print"
+kind = "forbid"
+paths = ["src/*.py"]
+pattern = '\bprint\('
+message = "No print() in library code."
+
+[[rules]]
+id = "typed-public-functions"
+kind = "forbid"
+paths = ["src/*.py"]
+pattern = '^\s*def [a-z]\w*\((?!.*->).*\)\s*:'
+message = "Public functions and methods need a return type annotation."
+
+[[rules]]
+id = "tests-accompany-changes"
+kind = "require_change"
+when_changed = ["src/*"]
+paths = ["tests/*"]
+message = "Any change to src/ must add or update tests."

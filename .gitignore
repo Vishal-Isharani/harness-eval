@@ -1,0 +1,33 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# --- uv ---
+# Commit uv.lock and .python-version; ignore only the local environment.
+.venv/
+
+# --- Tooling caches ---
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- hev run artefacts ---
+# Trial workspaces contain nested .git repos and agent logs; never commit them.
+# Copy the final report into reports/ (tracked) instead.
+runs/
+
+# --- Secrets / local config ---
+.env
+.env.*
+*.key
+
+# --- OS / editors ---
+.DS_Store
+.idea/
+.vscode/
+*.swp

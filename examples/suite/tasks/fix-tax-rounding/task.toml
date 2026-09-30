@@ -1,0 +1,17 @@
+id = "fix-tax-rounding"
+repo = "../../../repos/shop"
+timeout_s = 600
+prompt = """
+Bug report from finance: customers are sometimes charged one cent less tax than
+our invoicing system expects. Example: two items at 1.99 each should have 0.84
+tax, but the cart says 0.82.
+
+Tax (21%) must be computed ONCE on the cart subtotal, not per line, and rounded
+half up to the nearest cent. Please fix it.
+"""
+rubric = [
+  "Tax is computed once on the cart subtotal, not summed per line item.",
+  "Rounding is half-up to the nearest cent (e.g. 10.5 cents -> 11 cents).",
+  "Money arithmetic stays in integer cents without floating point.",
+  "A regression test that reproduces the reported 0.82 vs 0.84 discrepancy is added.",
+]

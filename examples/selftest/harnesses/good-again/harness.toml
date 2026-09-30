@@ -1,0 +1,4 @@
+# Identical to selftest-good (same solutions) under a different name: the A/A control.
+name = "selftest-good-again"
+agent = "replay"
+solutions = "../good/solutions"

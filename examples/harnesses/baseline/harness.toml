@@ -1,0 +1,6 @@
+name = "baseline"
+agent = "claude-code"          # claude-code | codex | command | replay
+model = "sonnet"
+# Headless runs cannot answer permission prompts. Run hev inside a container/VM
+# if you use this flag, or replace it with a narrower --allowedTools list.
+extra_args = ["--dangerously-skip-permissions"]

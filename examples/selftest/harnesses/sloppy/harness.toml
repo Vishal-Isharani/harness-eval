@@ -1,0 +1,3 @@
+name = "selftest-sloppy"
+agent = "replay"
+solutions = "solutions"
